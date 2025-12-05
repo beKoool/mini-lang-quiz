@@ -377,8 +377,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#ffffff02",
         borderColor: "#5e5cf1",
         borderWidth: 2,
-        boxShadow: '0 4px 8px rgba(108,117,125,0.3)',
-        elevation: 2,
     },
     secondaryButtonText: {
         color: "#5e5cf1",

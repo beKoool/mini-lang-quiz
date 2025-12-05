@@ -31,10 +31,9 @@ export default function RootLayout() {
   <Stack
       screenOptions={{
         headerShown: true,
-                headerTitleStyle: {
+          headerTitleStyle: {
           fontFamily: 'Inter_600SemiBold',
         },
-
       }}
     >
       <Stack.Screen 
@@ -54,18 +53,14 @@ export default function RootLayout() {
         name="results" 
         options={{ 
           title: "Results",
-                    // Prevent back navigation
           headerBackVisible: false,
-          gestureEnabled: false,
-
         }} 
       />
       <Stack.Screen 
         name="scoreHistory" 
         options={{ 
           title: "Score History",
-                    headerBackVisible: false,
-
+          headerBackVisible: false,
         }} 
       />
     </Stack>);

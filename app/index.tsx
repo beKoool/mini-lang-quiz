@@ -23,24 +23,28 @@ export default function HomeScreen() {
       {/* Body */}
       <View style={styles.body}>
 
-                 <Pressable
-           style={({ pressed }) => [
-             styles.button,
-             pressed && { transform: [{ scale: 0.95 }], opacity: 0.6 }
-           ]}
-           onPress={() => router.push("/game")}
-         >
-           <Text style={[styles.buttonText, styles.regular]}>Start Quiz</Text>
+          <Pressable
+            style={({ pressed }) => [
+              styles.button,
+              styles.primaryButton,
+              pressed && { transform: [{ scale: 0.97 }], opacity: 0.8 }
+            ]}
+            onPress={() => router.push("/game")}
+          >
+            <Text style={styles.buttonText}>Start Quiz</Text>
+            <Text style={styles.buttonIcon}>🎯</Text>
           </Pressable>
 
           <Pressable
-           style={({ pressed }) => [
-             styles.button,
-             pressed && { transform: [{ scale: 0.95 }], opacity: 0.6 }
-           ]}
-           onPress={() => router.push("/scoreHistory")} // Navigate to score history
-         >
-           <Text style={[styles.buttonText, styles.regular]}>View Score History</Text>
+            style={({ pressed }) => [
+              styles.button,
+              styles.secondaryButton,
+              pressed && { transform: [{ scale: 0.97 }], opacity: 0.8 }
+            ]}
+            onPress={() => router.push("/scoreHistory")}
+          >
+            <Text style={[styles.buttonText, styles.secondaryButtonText]}>View Score History</Text>
+            <Text style={styles.buttonIcon}>📊</Text>
           </Pressable>
 
 
@@ -76,20 +80,47 @@ const styles = StyleSheet.create({
     width: 300, 
     marginBottom: 100,
   },
-  button: {
-    width: 250,
-    padding: 15,
-    marginVertical: 10,
-    backgroundColor: "#5e5cf1ff",
-    borderRadius: 10,
-        boxShadow: '0 4px 8px rgba(94,92,241,0.3)',
-    elevation: 2,
+    button: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    maxWidth: 300,
+    paddingVertical: 16,
+    paddingHorizontal: 24,  
+    marginVertical: 6,
+    borderRadius: 12,
+    position: "relative",
+  },
 
+  primaryButton: {
+    backgroundColor: "#5e5cf1",
+    shadowColor: 'rgba(94,92,241,0.3)',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 1,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+  secondaryButton: {
+    backgroundColor: "#fff",
+    borderWidth: 2,
+    borderColor: "#e9ecef",
   },
   buttonText: {
     color: "#fff",
-    fontSize: 18,
+    fontSize: 16,
+    fontWeight: "600",
+    fontFamily: "Inter_600SemiBold",
+    flex: 1,
     textAlign: "center",
+  },
+  secondaryButtonText: {
+    color: "#495057",
+  },
+   buttonIcon: {
+    fontSize: 20,
+    position: "absolute",
+    right: 20,
   },
   regular: {
     fontFamily: "Inter_400Regular",
