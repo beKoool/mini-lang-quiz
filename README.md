@@ -1,50 +1,72 @@
-# Welcome to your Expo app 👋
+<img width="850" height="230" alt="minilangquizheaee" src="https://github.com/user-attachments/assets/4d6437cd-534d-421a-b256-3a9901bc6287" />
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# Mini Language Quiz 📚
+A fun and engaging **React Native (Expo)** application designed to boost your vocabulary through quick, interactive quizzes. Challenge yourself, learn new words, and track your progress in an encouraging environment. 🚀
 
-## Get started
+---
 
-1. Install dependencies
+## 🛠️ Tech Stack
 
-   ```bash
-   npm install
-   ```
+This application is built using modern JavaScript technologies for cross-platform mobile development.
 
-2. Start the app
+* **Framework:** **React Native**
+* **Platform:** **Expo**
+* **Language:** **TypeScript**
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## 🚀 Getting Started
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Follow these steps to get a copy of the project up and running on your local machine for development and testing.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### Prerequisites
 
-## Get a fresh project
-
-When you're ready, run:
+You need to have **Node.js** and **npm** (or **Yarn**) installed on your system. You also need to install the **Expo CLI** globally.
 
 ```bash
-npm run reset-project
+npm install -g expo-cli
+```
+#### Installation
+
+Clone the repository:
+```bash
+git clone [https://github.com/beKoool/mini-lang-quiz.git](https://github.com/beKoool/mini-lang-quiz.git)
+cd mini-lang-quiz
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
 
-## Learn more
+#### Running the App
 
-To learn more about developing your project with Expo, look at the following resources:
+1. Start the Expo development server:
+```bash
+npm start
+# or
+expo start
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+2. Scan the QR Code:
+- The command will open a browser window and display a QR code in the terminal.
+- Use the Expo Go app on your physical mobile device (iOS/Android) to scan the QR code.
+- Alternatively, press w to open the app in a web browser, a to run on Android emulator, or i to run on iOS simulator (if set up).
 
-## Join the community
+## 💡 Contributing
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+- Fork the Project
+- Create your Feature Branch (git checkout -b feature/AmazingFeature)
+- Commit your Changes (git commit -m 'Add some AmazingFeature')
+- Push to the Branch (git push origin feature/AmazingFeature)
+- Open a Pull Request
 
-Join our community of developers creating universal apps.
+## 📄 License
+Distributed under the MIT License.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🔗 Project Link
+https://github.com/beKoool/mini-lang-quiz
+
+Happy coding!!🔥🚀
