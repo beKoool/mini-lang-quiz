@@ -1,4 +1,5 @@
 import { vocab } from "@/constants/questions";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Audio } from 'expo-av';
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
@@ -12,7 +13,7 @@ export default function GameScreen() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [sound, setSound] = useState<Audio.Sound | null>(null);
   const [isAudioLoading, setIsAudioLoading] = useState(true);
-  const [gameSessionId, setGameSessionId] = useState<string>(''); // Track game session
+  const [gameSessionId, setGameSessionId] = useState<string>('');
 
   interface Question {
     word: string;
@@ -21,17 +22,38 @@ export default function GameScreen() {
   }
 
   useEffect(() => {
-    // Generate a unique session ID when game starts
-    const sessionId = `game_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    setGameSessionId(sessionId);
+    // Generate a unique session ID when game starts and store it
+    const initializeGame = async () => {
+      const sessionId = `game_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      setGameSessionId(sessionId);
+      
+      // Store this session as a pending valid session
+      try {
+        const pendingSessionsStr = await AsyncStorage.getItem('pendingSessions');
+        const pendingSessions = pendingSessionsStr ? JSON.parse(pendingSessionsStr) : {};
+        
+        // Store session with timestamp and expected total questions
+        pendingSessions[sessionId] = {
+          timestamp: Date.now(),
+          totalQuestions: 10, // We know it's always 10 questions
+          used: false
+        };
+        
+        await AsyncStorage.setItem('pendingSessions', JSON.stringify(pendingSessions));
+      } catch (error) {
+        console.error("Failed to store session", error);
+      }
+    };
+
+    initializeGame();
 
     async function prepareAudio() {
       try {
         const { sound: correctSound } = await Audio.Sound.createAsync(
-          require("../assets/audio/correct.mp3")
+          require("../assets/audio/correct.wav")
         );
         const { sound: wrongSound } = await Audio.Sound.createAsync(
-          require("../assets/audio/wrong.mp3")
+          require("../assets/audio/wrong.wav")
         );
 
         setCorrectSound(correctSound);
@@ -99,13 +121,29 @@ export default function GameScreen() {
       setScore(score + 1);
     }
 
-    setTimeout(() => {
+    setTimeout(async () => {
       setSelectedAnswer(null);
       if (currentQuestionIndex < questions.length - 1) {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
       } else {
-        // Navigate with session ID for validation
+        // Game completed - update session with final score
         const finalScore = isCorrect ? score + 1 : score;
+        
+        try {
+          const pendingSessionsStr = await AsyncStorage.getItem('pendingSessions');
+          const pendingSessions = pendingSessionsStr ? JSON.parse(pendingSessionsStr) : {};
+          
+          if (pendingSessions[gameSessionId]) {
+            // Update session with the actual score
+            pendingSessions[gameSessionId].score = finalScore;
+            pendingSessions[gameSessionId].completed = true;
+            await AsyncStorage.setItem('pendingSessions', JSON.stringify(pendingSessions));
+          }
+        } catch (error) {
+          console.error("Failed to update session", error);
+        }
+        
+        // Navigate with session ID for validation
         router.replace(`/results?score=${finalScore}&totalQuestions=${questions.length}&session=${gameSessionId}`);
       }
     }, 1000);
@@ -125,7 +163,6 @@ export default function GameScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Header with Question Number and Score */}
       <View style={styles.header}>
         <View style={styles.questionNumberContainer}>
           <Text style={styles.headerLabel}>Question</Text>

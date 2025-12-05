@@ -14,62 +14,92 @@ export default function ResultsScreen() {
   const totalStr = Array.isArray(totalQuestions) ? totalQuestions[0] : totalQuestions;
   const sessionStr = Array.isArray(session) ? session[0] : session;
 
-  // Validate inputs
-  const finalScore = scoreStr && !isNaN(parseInt(scoreStr)) ? parseInt(scoreStr) : null;
-  const total = totalStr && !isNaN(parseInt(totalStr)) ? parseInt(totalStr) : null;
+  // Parse inputs
+  const urlScore = scoreStr && !isNaN(parseInt(scoreStr)) ? parseInt(scoreStr) : null;
+  const urlTotal = totalStr && !isNaN(parseInt(totalStr)) ? parseInt(totalStr) : null;
 
   useEffect(() => {
     const validateAccess = async () => {
-      // Check if all required parameters are present and valid
-      if (!sessionStr || !sessionStr.startsWith('game_')) {
-        console.log("Invalid or missing session");
+      // Check if session exists
+      if (!sessionStr) {
+        console.log("Missing session");
         setIsChecking(false);
         setIsValidAccess(false);
         return;
       }
 
-      if (finalScore === null || total === null || total <= 0) {
-        console.log("Invalid score or total questions");
-        setIsChecking(false);
-        setIsValidAccess(false);
-        return;
-      }
-
-      if (finalScore < 0 || finalScore > total) {
-        console.log("Score out of valid range");
-        setIsChecking(false);
-        setIsValidAccess(false);
-        return;
-      }
-
-      // Check if this session was already used
       try {
-        const usedSessionsStr = await AsyncStorage.getItem('usedSessions');
-        const usedSessions = usedSessionsStr ? JSON.parse(usedSessionsStr) : [];
+        // Get the pending sessions
+        const pendingSessionsStr = await AsyncStorage.getItem('pendingSessions');
+        const pendingSessions = pendingSessionsStr ? JSON.parse(pendingSessionsStr) : {};
         
-        if (usedSessions.includes(sessionStr)) {
+        // Check if this session exists in our pending sessions
+        const sessionData = pendingSessions[sessionStr];
+        
+        if (!sessionData) {
+          console.log("Session not found - invalid or fabricated session");
+          setIsChecking(false);
+          setIsValidAccess(false);
+          return;
+        }
+
+        // Check if session was already used
+        if (sessionData.used) {
           console.log("Session already used");
           setIsChecking(false);
           setIsValidAccess(false);
           return;
         }
 
-        // Mark session as used
-        usedSessions.push(sessionStr);
-        await AsyncStorage.setItem('usedSessions', JSON.stringify(usedSessions));
-
-        // Clean up old sessions (keep only last 50)
-        if (usedSessions.length > 50) {
-          const recentSessions = usedSessions.slice(-50);
-          await AsyncStorage.setItem('usedSessions', JSON.stringify(recentSessions));
+        // Check if session is completed
+        if (!sessionData.completed) {
+          console.log("Game not completed yet");
+          setIsChecking(false);
+          setIsValidAccess(false);
+          return;
         }
 
-        // All validation passed
+        // Verify the score and total match what was stored during the game
+        const storedScore = sessionData.score;
+        const storedTotal = sessionData.totalQuestions;
+
+        if (urlScore !== storedScore || urlTotal !== storedTotal) {
+          console.log("Score/total mismatch - URL has been tampered with");
+          console.log(`Expected: ${storedScore}/${storedTotal}, Got: ${urlScore}/${urlTotal}`);
+          setIsChecking(false);
+          setIsValidAccess(false);
+          return;
+        }
+
+        // Check if session is too old (expired after 5 minutes)
+        const sessionAge = Date.now() - sessionData.timestamp;
+        const fiveMinutes = 5 * 60 * 1000;
+        if (sessionAge > fiveMinutes) {
+          console.log("Session expired");
+          setIsChecking(false);
+          setIsValidAccess(false);
+          return;
+        }
+
+        // All validation passed - mark session as used
+        sessionData.used = true;
+        pendingSessions[sessionStr] = sessionData;
+        await AsyncStorage.setItem('pendingSessions', JSON.stringify(pendingSessions));
+
+        // Clean up old sessions (keep only last 20)
+        const sessions = Object.entries(pendingSessions);
+        if (sessions.length > 20) {
+          const recentSessions = sessions
+            .sort(([, a]: any, [, b]: any) => b.timestamp - a.timestamp)
+            .slice(0, 20);
+          await AsyncStorage.setItem('pendingSessions', JSON.stringify(Object.fromEntries(recentSessions)));
+        }
+
+        // Save the score to history
+        await saveScore(storedScore, storedTotal);
+        
         setIsValidAccess(true);
         setIsChecking(false);
-
-        // Save the score
-        await saveScore();
       } catch (e) {
         console.error("Validation error", e);
         setIsChecking(false);
@@ -78,14 +108,12 @@ export default function ResultsScreen() {
     };
 
     validateAccess();
-  }, [sessionStr, finalScore, total]);
+  }, [sessionStr, urlScore, urlTotal]);
 
-  const saveScore = async () => {
+  const saveScore = async (validScore: number, validTotal: number) => {
     try {
-      if (finalScore === null || total === null) return;
-
       const timestamp = new Date().toISOString();
-      const scoreData = { score: finalScore, totalQuestions: total, timestamp };
+      const scoreData = { score: validScore, totalQuestions: validTotal, timestamp };
       const existingScoresString = await AsyncStorage.getItem('scores');
       let existingScores = existingScoresString ? JSON.parse(existingScoresString) : [];
       existingScores.push(scoreData);
@@ -113,6 +141,9 @@ export default function ResultsScreen() {
           <Text style={styles.errorText}>
             You can only view results after completing a quiz.
           </Text>
+          <Text style={styles.errorSubText}>
+            Please don't tamper with the URL.
+          </Text>
           <Pressable 
             style={styles.button} 
             onPress={() => router.replace("/")}
@@ -124,12 +155,12 @@ export default function ResultsScreen() {
     );
   }
 
-  // Show results for valid access
+  // Show results for valid access (use the stored score, not URL params)
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Results</Text>
       <Text style={styles.scoreText}>
-        Your Score: {finalScore} / {total}
+        Your Score: {urlScore} / {urlTotal}
       </Text>
 
       <View style={styles.buttonContainer}>
@@ -206,8 +237,15 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 16,
     textAlign: "center",
-    marginBottom: 24,
+    marginBottom: 12,
     color: "#6c757d",
     lineHeight: 24,
+  },
+  errorSubText: {
+    fontSize: 14,
+    textAlign: "center",
+    marginBottom: 24,
+    color: "#adb5bd",
+    fontStyle: "italic",
   },
 });
