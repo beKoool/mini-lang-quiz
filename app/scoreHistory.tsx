@@ -17,11 +17,10 @@ import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
          setScores(parsedScores);
        } catch (e) {
          console.error("Failed to load scores", e);
-         // Handle the error (e.g., show an alert)
        }
      };
      loadScores();
-   }, []); // Load scores on component mount
+   }, []);
 
    const formatDate = (isoString: string) => {
      const date = new Date(isoString);
@@ -52,7 +51,7 @@ import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
          
        )}
 
-       <Pressable onPress={() => router.back()} 
+       <Pressable onPress={() => router.replace("/")} 
              style={({ pressed }) => [
              styles.backButton,
              pressed && { transform: [{ scale: 0.95 }], opacity: 0.6 }
