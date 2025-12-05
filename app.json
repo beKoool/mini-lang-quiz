@@ -42,17 +42,24 @@
           }
         }
       ],
-
       [
         "expo-font",
-      {
-        "fonts": ["node_modules/@expo-google-fonts/inter/400Regular/Inter_400Regular.ttf"]
-      } 
-      ]   
+        {
+          "fonts": [
+            "node_modules/@expo-google-fonts/inter/400Regular/Inter_400Regular.ttf"
+          ]
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "20819f2e-30d8-4f99-bfb4-cbfa32133718"
+      }
     }
   }
 }
