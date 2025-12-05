@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 import React from "react";
 import { Image, Pressable, StyleSheet, View } from "react-native";
-import { Text } from "./StyledText";
+import { Text } from "../components/StyledText";
 
 export default function HomeScreen() {
   const router = useRouter(); 
@@ -51,8 +51,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f4f4f4",
-      fontFamily: 'Inter_400Regular',
+    backgroundColor: "#f8f9fa",
   },
   header: {
     paddingTop: 60,

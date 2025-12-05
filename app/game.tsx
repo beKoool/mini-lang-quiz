@@ -4,7 +4,7 @@ import { Audio } from 'expo-av';
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
-import { Text } from "./StyledText";
+import { Text } from "../components/StyledText";
 
 
 export default function GameScreen() {
