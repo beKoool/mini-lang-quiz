@@ -22,24 +22,25 @@ export default function HomeScreen() {
       {/* Body */}
       <View style={styles.body}>
 
-        <Pressable 
-          style={({ pressed }) => [
-            styles.button,
-            pressed && { transform: [{ scale: 0.95 }], opacity: 0.6 }
-          ]}   
-          onPress={() => router.push("/game")} 
-        >
-          <Text style={[styles.buttonText, styles.regular]}>Start Quiz</Text>
-        </Pressable>
+                 <Pressable
+           style={({ pressed }) => [
+             styles.button,
+             pressed && { transform: [{ scale: 0.95 }], opacity: 0.6 }
+           ]}
+           onPress={() => router.push("/game")}
+         >
+           <Text style={[styles.buttonText, styles.regular]}>Start Quiz</Text>
+          </Pressable>
 
-        <Pressable 
-          style={({ pressed }) => [
-            styles.button,
-            pressed && { transform: [{ scale: 0.95 }], opacity: 0.6 }
-          ]}
-        >
-          <Text style={[styles.buttonText, styles.regular]}>View Score History</Text>
-        </Pressable>
+          <Pressable
+           style={({ pressed }) => [
+             styles.button,
+             pressed && { transform: [{ scale: 0.95 }], opacity: 0.6 }
+           ]}
+           onPress={() => router.push("/scoreHistory")} // Navigate to score history
+         >
+           <Text style={[styles.buttonText, styles.regular]}>View Score History</Text>
+          </Pressable>
 
       </View>
     </View>
