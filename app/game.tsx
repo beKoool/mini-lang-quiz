@@ -3,7 +3,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Audio } from 'expo-av';
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
+import { Text } from "./StyledText";
+
 
 export default function GameScreen() {
   const router = useRouter();
@@ -163,6 +165,7 @@ export default function GameScreen() {
 
   return (
     <View style={styles.container}>
+        
       <View style={styles.header}>
         <View style={styles.questionNumberContainer}>
           <Text style={styles.headerLabel}>Question</Text>
@@ -223,7 +226,7 @@ const styles = StyleSheet.create({
   headerLabel: {
     fontSize: 12,
     color: "#6c757d",
-    fontWeight: "600",
+    fontWeight: "bold",
     textTransform: "uppercase",
     letterSpacing: 0.5,
     marginBottom: 4,
@@ -240,17 +243,14 @@ const styles = StyleSheet.create({
     padding: 32,
     borderRadius: 16,
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
+    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
     elevation: 3,
   },
   questionLabel: {
     fontSize: 14,
     color: "#6c757d",
     marginBottom: 4,
-    fontWeight: "500",
+    fontFamily: 'Inter_500Medium',
   },
   questionText: {
     fontSize: 40,
@@ -267,29 +267,21 @@ const styles = StyleSheet.create({
     backgroundColor: "#5e5cf1",
     borderRadius: 12,
     alignItems: "center",
-    shadowColor: "#5e5cf1",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
+    boxShadow: '0 4px 8px rgba(94,92,241,0.3)',
     elevation: 2,
   },
   answerText: {
     color: "#fff",
     fontSize: 18,
-    fontWeight: "600",
-  },
+    },
   correctAnswer: {
     backgroundColor: "#32d659ff",
-    shadowColor: "#28a745",
-    shadowOpacity: 0.5,
-    shadowRadius: 8,
+    boxShadow: '0 4px 8px rgba(40,167,69,0.3)',
     elevation: 2,
   },
   incorrectAnswer: {
     backgroundColor: "#ec2b3fff",
-    shadowColor: "#dc3545",
-    shadowOpacity: 0.5,
-    shadowRadius: 8,
+    boxShadow: '0 4px 8px rgba(220,53,69,0.3)',
     elevation: 2,
   },
   loadingText: {

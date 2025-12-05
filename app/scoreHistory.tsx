@@ -1,7 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, View } from "react-native";
+import { Text } from "./StyledText";
+
 
  export default function ScoreHistoryScreen() {
    const [scores, setScores] = useState<
@@ -67,6 +69,8 @@ import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
      flex: 1,
      padding: 20,
      backgroundColor: '#f8f9fa',
+       fontFamily: 'Inter_400Regular',
+
    },
    title: {
      fontSize: 24,
@@ -83,15 +87,12 @@ import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
      padding: 15,
      borderRadius: 8,
      marginBottom: 10,
-     shadowColor: '#000',
-     shadowOffset: { width: 0, height: 1 },
-     shadowOpacity: 0.1,
-     shadowRadius: 4,
      elevation: 2,
+     boxShadow: '0 1px 4px rgba(0,0,0,0.1)',
    },
    scoreText: {
      fontSize: 18,
-     fontWeight: '500',
+    fontFamily: 'Inter_600SemiBold',
    },
    dateText: {
      fontSize: 14,

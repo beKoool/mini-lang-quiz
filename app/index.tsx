@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 import React from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-
+import { Image, Pressable, StyleSheet, View } from "react-native";
+import { Text } from "./StyledText";
 
 export default function HomeScreen() {
   const router = useRouter(); 
@@ -16,6 +16,7 @@ export default function HomeScreen() {
         <Image 
           source={require("../assets/images/logo.png")}
           style={styles.logo}
+          resizeMode="contain"
         />
       </View>
 
@@ -51,6 +52,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f4f4f4",
+      fontFamily: 'Inter_400Regular',
   },
   header: {
     paddingTop: 60,
@@ -70,7 +72,6 @@ const styles = StyleSheet.create({
   logo: {
     width: 300, 
     marginBottom: 80,
-    resizeMode: "contain",
   },
   button: {
     width: 250,
