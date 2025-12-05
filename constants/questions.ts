@@ -22,3 +22,5 @@ export const vocab = [
     { word: "Sad", translation: "Dukhi" },
     { word: "Thank you", translation: "Dhanyabaad" },
 ]
+
+
