@@ -52,10 +52,10 @@ export default function GameScreen() {
     async function prepareAudio() {
       try {
         const { sound: correctSound } = await Audio.Sound.createAsync(
-          require("../assets/audio/correct.wav")
+          require("../assets/audio/correct.mp3")
         );
         const { sound: wrongSound } = await Audio.Sound.createAsync(
-          require("../assets/audio/wrong.wav")
+          require("../assets/audio/wrong.mp3")
         );
 
         setCorrectSound(correctSound);
