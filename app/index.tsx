@@ -43,6 +43,10 @@ export default function HomeScreen() {
            <Text style={[styles.buttonText, styles.regular]}>View Score History</Text>
           </Pressable>
 
+
+      </View>
+      <View style={styles.footer}>
+        <Text style={styles.creditsText}>Made by Anuj Sapkota</Text>
       </View>
     </View>
   );
@@ -54,7 +58,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f8f9fa",
   },
   header: {
-    paddingTop: 60,
+    paddingTop: 100,
     alignItems: "center",
     elevation: 3,
   },
@@ -70,14 +74,17 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 300, 
-    marginBottom: 80,
+    marginBottom: 100,
   },
   button: {
     width: 250,
     padding: 15,
-    marginVertical: 15,
+    marginVertical: 10,
     backgroundColor: "#5e5cf1ff",
     borderRadius: 10,
+        boxShadow: '0 4px 8px rgba(94,92,241,0.3)',
+    elevation: 2,
+
   },
   buttonText: {
     color: "#fff",
@@ -87,5 +94,13 @@ const styles = StyleSheet.create({
   regular: {
     fontFamily: "Inter_400Regular",
   },
- 
+    footer: {
+    paddingBottom: 30,
+    alignItems: "center",
+  },
+  creditsText: {
+    fontSize: 14,
+    color: "#6c757d",
+    fontFamily: "Inter_400Regular",
+  },
 });
