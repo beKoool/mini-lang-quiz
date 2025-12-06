@@ -374,14 +374,13 @@ const styles = StyleSheet.create({
         elevation: 2,
     },
     secondaryButton: {
-        backgroundColor: "#ffffff02",
-        borderColor: "#5e5cf1",
+        backgroundColor: "#fff",
         borderWidth: 2,
-    },
-    secondaryButtonText: {
-        color: "#5e5cf1",
-        fontSize: 16,
-    },
+        borderColor: "#e9ecef",
+      },
+      secondaryButtonText: {
+        color: "#495057",
+      },
     buttonText: {
         color: "#fff",
         fontSize: 16,
