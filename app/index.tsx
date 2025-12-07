@@ -92,7 +92,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     position: "relative",
   },
-
   primaryButton: {
     backgroundColor: "#5e5cf1",
     shadowColor: 'rgba(94,92,241,0.3)',
@@ -125,8 +124,8 @@ const styles = StyleSheet.create({
   regular: {
     fontFamily: "Inter_400Regular",
   },
-    footer: {
-    paddingBottom: 30,
+  footer: {
+    paddingBottom: 60,
     alignItems: "center",
   },
   creditsText: {

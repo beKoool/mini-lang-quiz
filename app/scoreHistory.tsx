@@ -58,7 +58,7 @@ export default function ScoreHistoryScreen() {
     if (percentage >= 80) return '🎉';
     if (percentage >= 60) return '😊';
     if (percentage >= 40) return '😐';
-    return '😔';
+    return '😢';
   };
 
   return (
@@ -66,7 +66,7 @@ export default function ScoreHistoryScreen() {
       {/* Score List */}
       {scores.length === 0 ? (
         <View style={styles.emptyState}>
-          <Text style={styles.emptyEmoji}>📝</Text>
+          <Text style={styles.emptyEmoji}>📋</Text>
           <Text style={styles.emptyTitle}>No Quizzes Yet</Text>
           <Text style={styles.emptyText}>
             Start your first quiz to see your scores here!
@@ -182,7 +182,8 @@ const styles = StyleSheet.create({
   backButton: {
     backgroundColor: '#5e5cf1',
     marginHorizontal: 20,
-    marginVertical: 20,
+    marginTop: 10,
+    marginBottom: 60,
     padding: 16,
     borderRadius: 12,
     alignItems: 'center',
