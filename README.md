@@ -55,9 +55,16 @@ expo start
 - Use the Expo Go app on your physical mobile device (iOS/Android) to scan the QR code.
 - Alternatively, press w to open the app in a web browser, a to run on Android emulator, or i to run on iOS simulator (if set up). 
 
-## OUTPUT
 
-You can download the `Mini-Lang-Quiz.apk` file from `OUTPUT/` to have a hands-on experience of Mini Language Quiz game.
+
+## Release
+You can download the `Mini-Lang-Quiz.apk` file from the [Releases](https://github.com/beKoool/mini-lang-quiz/releases/) section of this repository to have a hands-on experience of Mini Language Quiz game.
+
+
+## Screenshots
+<img width="850" height="592" alt="screenshotsminilangquiz" src="https://github.com/user-attachments/assets/9016d130-7acb-4925-a33b-1320e0c3def9" />
+
+
 
 ## 💡 Contributing
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
